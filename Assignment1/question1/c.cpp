@@ -1,32 +1,31 @@
 #include <iostream>
 #include <vector>
-#include <ctime>
 
-std::vector<long long> memo(51, -1);
+std::vector<long long> memo(50,-1);
 
-long long fibonacci_memo(int n) {
+long long fib_rec_mem(long long n) {
     if (memo[n] != -1) return memo[n];
     if (n <= 1) return n;
-    memo[n] = fibonacci_memo(n - 1) + fibonacci_memo(n - 2);
+    memo[n] = fib_rec_mem(n - 1) + fib_rec_mem(n - 2);
     return memo[n];
 }
 
-void print_fibonacci_memo(int terms) {
-    for (int i = 0; i < terms; ++i) {
-        std::cout << fibonacci_memo(i) << " ";
-    }
-    std::cout << std::endl;
-}
-
 int main() {
-    const int TERMS = 50;
 
-    clock_t start = clock();
-    print_fibonacci_memo(TERMS);
-    clock_t end = clock();
+    struct timespec t_start;
+    struct timespec t_end;
+    std::vector<long long> list;
 
-    double duration = double(end - start) / CLOCKS_PER_SEC;
-    std::cout << "Time taken: " << duration << " seconds" << std::endl;
+    timespec_get(&t_start, TIME_UTC);
+    for (long long i = 0; i < 50; ++i) {
+            list.push_back(fib_rec_mem(i));
+    }
+    timespec_get(&t_end, TIME_UTC);
 
+    printf("%ld",t_end.tv_nsec-t_start.tv_nsec);
+    printf("\n");
+    for (int i = 0; i < 50; i++){
+        printf("%lld ",list[i]);
+    }
     return 0;
 }

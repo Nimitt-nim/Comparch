@@ -1,33 +1,43 @@
 #include <iostream>
 #include <vector>
+#include <time.h>
 #include <ctime>
 
-void print_fibonacci_loop(int terms) {
-    std::vector<long long> fib(terms);
-    if (terms > 0) fib[0] = 0;
-    if (terms > 1) fib[1] = 1;
 
-    for (int j = 2; j < terms;++j){
-        for (int i = 2; i < terms; ++i) {
-            fib[i] = fib[i - 1] + fib[i - 2];
-        }
+long long fib_loop(int n) {
+
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    long long prev = 0;
+    long long ans = 1;
+    long long temp;
+
+    for (int j = 1; j < n;++j){
+        temp = ans;
+        ans = ans + prev;
+        prev = temp;
     }
 
-    for (int i = 0; i < terms; i++) {
-        std::cout << fib[i] << " ";
-    }
-    std::cout << std::endl;
+    return ans; 
 }
 
 int main() {
-    const int TERMS = 50;
 
-    clock_t start = clock();
-    print_fibonacci_loop(TERMS);
-    clock_t end = clock();
+    struct timespec t_start;
+    struct timespec t_end;
+    std::vector<long long> list;
 
-    double duration = double(end - start) / CLOCKS_PER_SEC;
-    std::cout << "Time taken: " << duration << " seconds" << std::endl;
-
+    timespec_get(&t_start, TIME_UTC);
+    for (long long i = 0; i < 50; ++i) {
+        list.push_back(fib_loop(i));
+    }
+    
+    timespec_get(&t_end, TIME_UTC);
+    printf("%ld",t_end.tv_nsec - t_start.tv_nsec);
+    printf("\n");
+    for (int i = 0; i < 50; i++){
+        printf("%lld ",list[i]);
+    }
     return 0;
 }

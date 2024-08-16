@@ -1,29 +1,24 @@
 #include <iostream>
 #include <vector>
-#include <ctime>
+#include <time.h>
 
-int fibonacci_rec(long long n) {
+long long fib_rec(long long n) {
     if (n <= 1) return n;
-    return fibonacci_rec(n - 1) + fibonacci_rec(n - 2);
-}
-
-void print_fibonacci_rec(int terms) {
-    for (int i = 0; i < terms; ++i) {
-        std::cout << fibonacci_rec(i) << " ";
-    }
-    std::cout << std::endl;
+    return fib_rec(n - 1) + fib_rec(n - 2);
 }
 
 int main() {
-    const int TERMS = 50;
 
-    clock_t start = clock();
-    print_fibonacci_rec(TERMS);
-    clock_t end = clock();
+    struct timespec start, end;
+    struct rusage usage;
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
-    double duration = double(end - start) / CLOCKS_PER_SEC;
-    std::cout << "Time taken: " << duration << " seconds" << std::endl;
-
-    return 0;
+    std::vector<long long> list;
+    for (long long i = 0; i < 50; ++i) {
+        list.push_back(fib_rec(i));
+    }
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    getrusage(RUSAGE_SELF, &usage);
+    printf("User CPU Time: %ld.%06ld sec\n", usage.ru_utime.tv_sec, usage.ru_utime.tv_usec);
+    printf("System CPU Time: %ld.%06ld sec\n\n", usage.ru_stime.tv_sec, usage.ru_stime.tv_usec);
 }
-
