@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assignment-2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Assignment2Solutions</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14638,9 +14638,9 @@ $$speedup = \frac{T_{p} + T_{1-p}}{\frac{T_{p}}{N} + T_{1-p}}\\[2em]
 
  = \frac{1}{\frac{p}{N} + (1-p)}\\[2em]
 
- = \frac{1}{\frac{0.4}{N} + (1-0.4)}\\[2em]
+ = \frac{1}{\frac{0.4}{K} + (1-0.4)}\\[2em]
 
- = \mathbf{\frac{N}{0.4 + 0.6*N}}$$
+ = \mathbf{\frac{K}{0.4 + 0.6*K}}$$
 </div>
 </div>
 </div>
@@ -14735,8 +14735,8 @@ Execution \ Time \ (A) = 480 s$$</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Solution</p>
-<p>Given, $$1-p = 0.2 \\ N = 4$$</p>
-<p>Solving, $ p = 0.8$, using the equation derived in Question 1,</p>
+<p>Given, 20% is bottleneck, therefore this is the serial part and can't be parralelized.</p>
+$$1-p = 0.2 \\ N = 4$$<p>Solving, $ p = 0.8$, using the equation derived in Question 1,</p>
 $$speedup = \frac{1}{\frac{p}{N} + (1-p)} = \frac{1}{\frac{0.8}{4} + (0.2)} = \mathbf{2.5}$$
 </div>
 </div>
@@ -14901,14 +14901,14 @@ T_{new} = \frac{T_{p}}{N} + T_{1-p} + N\times 0.005 \times T_{original}\\[2em]
 
 speedup(new, original) = \frac{T_{original}}{T_{new}} \\[2em]
 \frac{T_{p}}{p} = \frac{T_{1-p}}{1-p} = T_{original}$$<p>Given, $$p = 0.8 \ (assuming \ given \ same \ as \ (a)) \\ N = 8$$</p>
-$$$$<p>Plugging values,</p>
-$$speedup = \frac{T_{p} + T_{1-p}}{\frac{T_{p}}{N} + T_{1-p}+ N\times 0.005\times T_{original}} \\[2em]
+$$$$<p>For $N = 8$, we add 7 processors therefore penalty gets added for 7 processors, Plugging values,</p>
+$$speedup = \frac{T_{p} + T_{1-p}}{\frac{T_{p}}{N} + T_{1-p}+ (N-1)\times 0.005\times T_{original}} \\[2em]
 
- = \frac{p*T_{original} + (1-p)T_{original}}{\frac{p*T_{original}}{N} + (1-p)T_{original} + N\times 0.005\times T_{original}}\\[2em]
+ = \frac{p*T_{original} + (1-p)T_{original}}{\frac{p*T_{original}}{N} + (1-p)T_{original} + (N-1)\times 0.005\times T_{original}}\\[2em]
 
- = \frac{1}{\frac{p}{N} + (1-p) + N\times 0.005}\\[2em]
+ = \frac{1}{\frac{p}{N} + (1-p) + (N-1)\times 0.005}\\[2em]
 
- = \frac{1}{\frac{0.8}{8} + 0.2 + 8\times 0.005}\\[2em]
+ = \frac{1}{\frac{0.8}{8} + 0.2 + 7\times 0.005}\\[2em]
 
  = {\frac{1}{0.34}}\\[2em]
 
@@ -14937,7 +14937,7 @@ T_{new} = \frac{T_{p}}{N} + T_{1-p} + \lfloor \log_2(N) \rfloor\times 0.005 \tim
  = \frac{1}{\frac{p}{N} + (1-p) + \lfloor \log_2(N) \rfloor\times 0.005}\\[2em]
 
  = \mathbf{\frac{1}{\frac{0.8}{N} + 0.2 + \lfloor \log_2(N) \rfloor\times 0.005}}$$<p>(e) As derived in (d),</p>
-<p>$$ speedup(p,N) = \frac{1}{\frac{p}{N} + (1-p) + \lfloor \log_2(N) \rfloor\times 0.005}$$</p>
+<p>$$ \mathbf{speedup(p,N) = \frac{1}{\frac{p}{N} + (1-p) + \lfloor \log_2(N) \rfloor\times 0.005}}$$</p>
 
 </div>
 </div>
